@@ -5,6 +5,7 @@ import contexts.UI2Data;
 import data.DataAllTypes;
 import data.DataString;
 import data.FieldData;
+import data.Selection;
 import enums.TValueType;
 import haxe.Json;
 import js.Browser;
@@ -32,7 +33,7 @@ class Main {
 		
 		doc = Browser.document;
 		
-		data1 = new DataAllTypes( 0, true, 0.12, 4, "Random Text", Choices.Second, ["Same as Input Series", 1, 2] );
+		data1 = new DataAllTypes( 0, true, 0.12, 4, "Random Text", Choices.Second, new Selection( ["Same as Input Series", "1", "2"] ));
 		data2 = new DataString( 1, "Some Text", "More Text", "and another one" );
 		
 		usedData = data1;

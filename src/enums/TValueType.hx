@@ -8,5 +8,6 @@ enum TValueType {
 	TEnum;
 	TFloat;
 	TInt;
+	TSelection;
 	TString;
 }

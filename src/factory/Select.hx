@@ -8,7 +8,7 @@ import js.html.SelectElement;
  */
 class Select {
 
-	public static function create( index:Int, options:Array<String> ):SelectElement {
+	public static function create( options:Array<String>, defaultIndex:Int = 0 ):SelectElement {
 		
 		var select = Browser.document.createSelectElement();
 		
@@ -16,7 +16,7 @@ class Select {
 			var option = Browser.document.createOptionElement();
 			option.value = Std.string( i );
 			option.innerHTML = options[i];
-			if ( i == index ) {
+			if ( i == defaultIndex ) {
 				option.selected = true;
 			}
 			select.appendChild( option );

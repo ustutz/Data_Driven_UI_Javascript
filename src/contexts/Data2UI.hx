@@ -2,6 +2,7 @@ package contexts;
 import contexts.UI2Data;
 import data.Data;
 import data.FieldData;
+import data.Selection;
 import enums.TValueType;
 import factory.Checkbox;
 import factory.Select;
@@ -35,10 +36,13 @@ class Data2UI {
 					if ( c == String ) {
 						var inputElement = Textinput.create( value );
 						fieldDatasets.push( new FieldData( field, TValueType.TString, value, labelElement, inputElement, UI2Data.retrieveString ));
+					} else if ( c == Selection ) {
+						var selectElement = Select.create( value.options, value.defaultIndex );
+						fieldDatasets.push( new FieldData( field, TValueType.TSelection, value, labelElement, selectElement, UI2Data.retrieveSelect ));
 					}
 				case TEnum(_):
-					var selectElement = Select.create( Type.enumIndex( value ), Type.getEnumConstructs( Type.getEnum( value )) );
-					fieldDatasets.push( new FieldData( field, TValueType.TEnum, value, labelElement, selectElement, UI2Data.retrieveEnum ));
+					var selectElement = Select.create( Type.getEnumConstructs( Type.getEnum( value )), Type.enumIndex( value ) );
+					fieldDatasets.push( new FieldData( field, TValueType.TEnum, value, labelElement, selectElement, UI2Data.retrieveSelect ));
 				case TFloat:
 					var inputElement = Textinput.create( Std.string( value ));
 					fieldDatasets.push( new FieldData( field, TValueType.TFloat, value, labelElement, inputElement, UI2Data.retrieveFloat ));

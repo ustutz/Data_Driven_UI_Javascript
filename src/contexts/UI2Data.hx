@@ -1,6 +1,7 @@
 package contexts;
 import data.Data;
 import data.FieldData;
+import data.Selection;
 import enums.TValueType;
 import js.html.InputElement;
 import js.html.SelectElement;
@@ -23,6 +24,9 @@ class UI2Data {
 						var enumString = constructs[value];
 						var enumValue = Type.createEnum( enumType, enumString );
 						Reflect.setProperty( dataContainer, fieldData.name, enumValue );
+					case TValueType.TSelection:
+						var selection = new Selection( fieldData.value.options, value );
+						Reflect.setProperty( dataContainer, fieldData.name, selection );
 					case _:
 						Reflect.setProperty( dataContainer, fieldData.name, value );
 				}
@@ -48,7 +52,7 @@ class UI2Data {
 	public static function retrieveString( inputElement:InputElement ):String {
 		return inputElement.value;
 	}
-	public static function retrieveEnum( selectElement:SelectElement ):Int {
+	public static function retrieveSelect( selectElement:SelectElement ):Int {
 		return selectElement.selectedIndex;
 	}
 	
