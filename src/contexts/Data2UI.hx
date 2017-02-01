@@ -16,7 +16,7 @@ import js.html.Element;
  */
 class Data2UI {
 
-	public static function create<T>( data:T ):Array<FieldData> {
+	public static function createFieldDatasets<T>( data:T ):Array<FieldData> {
 		
 		var fieldDatasets:Array<FieldData> = [];
 		

@@ -1,5 +1,6 @@
 package;
 
+import contexts.CreateUI;
 import contexts.Data2UI;
 import contexts.UI2Data;
 import data.DataAllTypes;
@@ -22,7 +23,6 @@ import js.html.InputElement;
  */
 class Main {
 	
-	static var doc:HTMLDocument;
 	static var data1:DataAllTypes;
 	static var data2:DataString;
 	
@@ -30,8 +30,6 @@ class Main {
 	static var fieldDatasets:Array<FieldData>;
 	
 	static function main() {
-		
-		doc = Browser.document;
 		
 		data1 = new DataAllTypes( 	0, 
 									true, 
@@ -47,37 +45,11 @@ class Main {
 		
 		usedData = data1;
 		
-		fieldDatasets = Data2UI.create( usedData );
+		fieldDatasets = Data2UI.createFieldDatasets( usedData );
+		CreateUI.create( fieldDatasets );
 		
-		var table = doc.getElementById( "table" );
-		for ( fieldData in fieldDatasets ) {
-			
-			var row = createRow( fieldData.labelElement, fieldData.inputElement );
-			table.appendChild( row );
-			
-		}
-		
-		var okButton = doc.getElementById( "ok" );
+		var okButton = Browser.document.getElementById( "ok" );
 		okButton.addEventListener( "click", onClick );
-	}
-	
-	static function createRow( element1:Element, element2:Element ):Element {
-		
-		var row = doc.createDivElement();
-		row.classList.add( "row" );
-		
-		var cell1 = doc.createDivElement();
-		cell1.classList.add( "cell" );
-		
-		var cell2 = doc.createDivElement();
-		cell2.classList.add( "cell" );
-		
-		row.appendChild( cell1 );
-		row.appendChild( cell2 );
-		cell1.appendChild( element1 );
-		cell2.appendChild( element2 );
-		
-		return row;
 	}
 	
 	static function onClick( e:Event ):Void { //trace( "click" );
