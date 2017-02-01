@@ -23,8 +23,6 @@ class Data2UI {
 		var c = Type.getClass( data );
 		var fields = Type.getInstanceFields( c );
 		
-		// sort fields
-		
 		for ( field in fields ) {
 			
 			var value:Dynamic = Reflect.getProperty( data, field );
@@ -34,25 +32,37 @@ class Data2UI {
 			
 				case TClass( c ):
 					if ( c == String ) {
+						
 						var inputElement = Textinput.create( value );
 						fieldDatasets.push( new FieldData( field, TValueType.TString, value, labelElement, inputElement, UI2Data.retrieveString ));
+					
 					} else if ( c == Selection ) {
-						var selectElement = value.options.length > 1 ? Select.create( value.options, value.defaultIndex ) : createText( value.options[0] );
-						var retrieve = value.options.length > 1 ? UI2Data.retrieveSelect : UI2Data.retrieveZero;
-						fieldDatasets.push( new FieldData( field, TValueType.TSelection, value, labelElement, selectElement, retrieve ));
+						
+						if ( value.options.length > 1 ) {
+							var selectElement = Select.create( value.options, value.defaultIndex );
+							fieldDatasets.push( new FieldData( field, TValueType.TSelection, value, labelElement, selectElement, UI2Data.retrieveSelect ));
+						} else {
+							var selectElement = createText( value.options[0] );
+							fieldDatasets.push( new FieldData( field, TValueType.TSelection, value, labelElement, selectElement, UI2Data.retrieveZero ));
+						}
 					}
+				
 				case TEnum(_):
 					var selectElement = Select.create( Type.getEnumConstructs( Type.getEnum( value )), Type.enumIndex( value ) );
 					fieldDatasets.push( new FieldData( field, TValueType.TEnum, value, labelElement, selectElement, UI2Data.retrieveSelect ));
+				
 				case TFloat:
 					var inputElement = Textinput.create( Std.string( value ));
 					fieldDatasets.push( new FieldData( field, TValueType.TFloat, value, labelElement, inputElement, UI2Data.retrieveFloat ));
+				
 				case TInt:
 					var inputElement = Textinput.create( Std.string( value ));
 					fieldDatasets.push( new FieldData( field, TValueType.TInt, value, labelElement, inputElement, UI2Data.retrieveInt ));
+				
 				case TBool:
 					var inputElement = Checkbox.create( value );
 					fieldDatasets.push( new FieldData( field, TValueType.TBool, value, labelElement, inputElement, UI2Data.retrieveBool ));
+				
 				case _:
 			}
 		}

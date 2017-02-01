@@ -12,7 +12,6 @@ class Selection {
 	public function new( options:Array<String>, index:Int = 0 ) {
 		this.options = options;
 		this.index = index;
-		
 	}
 	
 }
