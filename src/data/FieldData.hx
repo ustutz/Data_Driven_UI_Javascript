@@ -13,10 +13,10 @@ class FieldData {
 	public var type:TValueType;
 	public var value:Dynamic;
 	public var labelElement:Element;
-	public var inputElement:InputElement;
+	public var inputElement:Element;
 	public var retrieve:InputElement->Dynamic;
 
-	public function new( name:String, type:TValueType, value:Dynamic, labelElement:Element, inputElement:InputElement, retrieve:InputElement->Dynamic ) {
+	public function new( name:String, type:TValueType, value:Dynamic, labelElement:Element, inputElement:Element, retrieve:Dynamic->Dynamic ) {
 		this.name = name;
 		this.type = type;
 		this.value = value;

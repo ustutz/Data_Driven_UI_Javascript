@@ -1,9 +1,11 @@
 package;
 
 import contexts.Data2UI;
+import contexts.UI2Data;
 import data.DataAllTypes;
 import data.DataString;
 import data.FieldData;
+import enums.TValueType;
 import haxe.Json;
 import js.Browser;
 import js.Lib;
@@ -30,10 +32,10 @@ class Main {
 		
 		doc = Browser.document;
 		
-		data1 = new DataAllTypes( true, 0.12, 4, "Random Text", Choices.Third );
-		data2 = new DataString( "Some Text" );
+		data1 = new DataAllTypes( 0, true, 0.12, 4, "Random Text", Choices.Second );
+		data2 = new DataString( 1, "Some Text", "More Text", "and another one" );
 		
-		usedData = data1;
+		usedData = data2;
 		
 		fieldDatasets = Data2UI.create( usedData );
 		
@@ -70,13 +72,9 @@ class Main {
 	
 	static function onClick( e:Event ):Void { //trace( "click" );
 		
-		for ( fieldData in fieldDatasets ) {
-			var value = fieldData.retrieve( fieldData.inputElement );
-			if ( value != null ) {
-				Reflect.setProperty( usedData, fieldData.name, value );
-			}
-		}
+		var retrievedData = UI2Data.retrieve( usedData.copy(), fieldDatasets );
 		
 		trace( usedData );
+		trace( retrievedData );
 	}
 }

@@ -5,12 +5,14 @@ package data;
  * @author Urs Stutz
  */
 class Data {
-
-	public function new() {
-		
+	
+	public var id:Int;
+	
+	public function new( id:Int, ?fieldList ) {
+		this.id = id;
 	}
 	
 	public function copy():Data {
-		return new Data();
+		return new Data( id );
 	}
 }

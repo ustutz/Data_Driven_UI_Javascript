@@ -1,5 +1,9 @@
 package contexts;
+import data.Data;
+import data.FieldData;
+import enums.TValueType;
 import js.html.InputElement;
+import js.html.SelectElement;
 
 /**
  * ...
@@ -7,6 +11,31 @@ import js.html.InputElement;
  */
 class UI2Data {
 
+	public static function retrieve( dataContainer:Data, fieldDatasets:Array<FieldData> ):Data {
+		
+		for ( fieldData in fieldDatasets ) {
+			var value = fieldData.retrieve( cast( fieldData.inputElement ));
+			if ( value != null ) {
+				switch fieldData.type {
+					case TValueType.TEnum:
+						var enumType = Type.getEnum( fieldData.value );
+						var constructs = Type.getEnumConstructs( enumType );
+						var enumString = constructs[value];
+						var enumValue = Type.createEnum( enumType, enumString );
+						Reflect.setProperty( dataContainer, fieldData.name, enumValue );
+					case _:
+						Reflect.setProperty( dataContainer, fieldData.name, value );
+				}
+			} else {
+				trace( 'Error retrieving value for ${fieldData.name}' );
+			}
+		}
+		return dataContainer;
+	}
+	
+	public static function retrieveArray( selectElement:SelectElement ):Int {
+		return selectElement.selectedIndex;
+	}
 	public static function retrieveBool( inputElement:InputElement ):Bool {
 		return inputElement.checked;
 	}
@@ -18,6 +47,9 @@ class UI2Data {
 	}
 	public static function retrieveString( inputElement:InputElement ):String {
 		return inputElement.value;
+	}
+	public static function retrieveEnum( selectElement:SelectElement ):Int {
+		return selectElement.selectedIndex;
 	}
 	
 }

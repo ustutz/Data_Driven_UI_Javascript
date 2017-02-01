@@ -4,6 +4,7 @@ import data.Data;
 import data.FieldData;
 import enums.TValueType;
 import factory.Checkbox;
+import factory.Select;
 import factory.Textinput;
 import js.Browser;
 import js.html.Element;
@@ -14,7 +15,7 @@ import js.html.Element;
  */
 class Data2UI {
 
-	public static function create( data:Dynamic ):Array<FieldData> {
+	public static function create<T>( data:T ):Array<FieldData> {
 		
 		var fieldDatasets:Array<FieldData> = [];
 		
@@ -36,6 +37,8 @@ class Data2UI {
 						fieldDatasets.push( new FieldData( field, TValueType.TString, value, labelElement, inputElement, UI2Data.retrieveString ));
 					}
 				case TEnum(_):
+					var selectElement = Select.create( Type.enumIndex( value ), Type.getEnumConstructs( Type.getEnum( value )) );
+					fieldDatasets.push( new FieldData( field, TValueType.TEnum, value, labelElement, selectElement, UI2Data.retrieveSelected ));
 				case TFloat:
 					var inputElement = Textinput.create( Std.string( value ));
 					fieldDatasets.push( new FieldData( field, TValueType.TFloat, value, labelElement, inputElement, UI2Data.retrieveFloat ));
@@ -55,10 +58,8 @@ class Data2UI {
 	
 	static function createLabelElement( text:String ):Element {
 		
-		var formatLabel = Ramda.compose3( upperFirst, splitAtUppercaseLetters, filterIs );
-		
 		var labelElement = Browser.document.createLabelElement();
-		labelElement.innerHTML = formatLabel( text );
+		labelElement.innerHTML = upperFirst( splitAtUppercaseLetters( filterIs( text )));
 		return labelElement;
 	}
 	
