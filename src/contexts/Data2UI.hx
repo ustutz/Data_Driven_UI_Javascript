@@ -37,8 +37,9 @@ class Data2UI {
 						var inputElement = Textinput.create( value );
 						fieldDatasets.push( new FieldData( field, TValueType.TString, value, labelElement, inputElement, UI2Data.retrieveString ));
 					} else if ( c == Selection ) {
-						var selectElement = Select.create( value.options, value.defaultIndex );
-						fieldDatasets.push( new FieldData( field, TValueType.TSelection, value, labelElement, selectElement, UI2Data.retrieveSelect ));
+						var selectElement = value.options.length > 1 ? Select.create( value.options, value.defaultIndex ) : createText( value.options[0] );
+						var retrieve = value.options.length > 1 ? UI2Data.retrieveSelect : UI2Data.retrieveZero;
+						fieldDatasets.push( new FieldData( field, TValueType.TSelection, value, labelElement, selectElement, retrieve ));
 					}
 				case TEnum(_):
 					var selectElement = Select.create( Type.getEnumConstructs( Type.getEnum( value )), Type.enumIndex( value ) );
@@ -58,6 +59,12 @@ class Data2UI {
 		
 		return fieldDatasets;
 		
+	}
+	
+	static function createText( text:String ):Element {
+		var span = Browser.document.createSpanElement();
+		span.innerHTML = text;
+		return span;
 	}
 	
 	static function createLabelElement( text:String ):Element {

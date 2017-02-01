@@ -55,5 +55,8 @@ class UI2Data {
 	public static function retrieveSelect( selectElement:SelectElement ):Int {
 		return selectElement.selectedIndex;
 	}
+	public static function retrieveZero( selectElement:SelectElement ):Int {
+		return 0;
+	}
 	
 }

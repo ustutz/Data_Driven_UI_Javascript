@@ -19,8 +19,9 @@ class DataAllTypes  extends Data {
 	public var someText:String;
 	public var choice:Choices;
 	public var selection:Selection;
+	public var onlyOneSelection:Selection;
 
-	public function new( id:Int, isYesOrNo:Bool, number:Float, amount:Int, someText:String, choice:Choices, selection:Selection ) {
+	public function new( id:Int, isYesOrNo:Bool, number:Float, amount:Int, someText:String, choice:Choices, selection:Selection, onlyOneSelection:Selection ) {
 		
 		super( id );
 		
@@ -30,9 +31,10 @@ class DataAllTypes  extends Data {
 		this.someText = someText;
 		this.choice = choice;
 		this.selection = selection;
+		this.onlyOneSelection = onlyOneSelection;
 	}
 	
 	override public function copy():DataAllTypes {
-		return new DataAllTypes( id, isYesOrNo, number, amount, someText, choice, selection );
+		return new DataAllTypes( id, isYesOrNo, number, amount, someText, choice, selection,onlyOneSelection );
 	}
 }

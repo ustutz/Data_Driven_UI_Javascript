@@ -33,7 +33,16 @@ class Main {
 		
 		doc = Browser.document;
 		
-		data1 = new DataAllTypes( 0, true, 0.12, 4, "Random Text", Choices.Second, new Selection( ["Same as Input Series", "1", "2"] ));
+		data1 = new DataAllTypes( 	0, 
+									true, 
+									0.12, 
+									4, 
+									"Random Text", 
+									Choices.Second, 
+									new Selection( ["Same as Input Series", "1", "2"] ), 
+									new Selection( ["Input Series"]
+								));
+								
 		data2 = new DataString( 1, "Some Text", "More Text", "and another one" );
 		
 		usedData = data1;
