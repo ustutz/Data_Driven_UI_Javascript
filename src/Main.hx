@@ -32,10 +32,10 @@ class Main {
 		
 		doc = Browser.document;
 		
-		data1 = new DataAllTypes( 0, true, 0.12, 4, "Random Text", Choices.Second );
+		data1 = new DataAllTypes( 0, true, 0.12, 4, "Random Text", Choices.Second, ["Same as Input Series", 1, 2] );
 		data2 = new DataString( 1, "Some Text", "More Text", "and another one" );
 		
-		usedData = data2;
+		usedData = data1;
 		
 		fieldDatasets = Data2UI.create( usedData );
 		

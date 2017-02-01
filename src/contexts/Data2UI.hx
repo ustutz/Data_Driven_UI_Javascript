@@ -38,7 +38,7 @@ class Data2UI {
 					}
 				case TEnum(_):
 					var selectElement = Select.create( Type.enumIndex( value ), Type.getEnumConstructs( Type.getEnum( value )) );
-					fieldDatasets.push( new FieldData( field, TValueType.TEnum, value, labelElement, selectElement, UI2Data.retrieveSelected ));
+					fieldDatasets.push( new FieldData( field, TValueType.TEnum, value, labelElement, selectElement, UI2Data.retrieveEnum ));
 				case TFloat:
 					var inputElement = Textinput.create( Std.string( value ));
 					fieldDatasets.push( new FieldData( field, TValueType.TFloat, value, labelElement, inputElement, UI2Data.retrieveFloat ));
