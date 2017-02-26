@@ -1,10 +1,6 @@
 package data;
 import data.Data;
 
-/**
- * ...
- * @author Urs Stutz
- */
 enum Choices {
 	First;
 	Second;

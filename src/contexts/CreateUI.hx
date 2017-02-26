@@ -3,10 +3,6 @@ import data.FieldData;
 import js.Browser;
 import js.html.Element;
 
-/**
- * ...
- * @author Urs Stutz
- */
 class CreateUI {
 
 	public static function create( fieldDatasets:Array<FieldData> ):Void {

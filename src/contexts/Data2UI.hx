@@ -10,10 +10,6 @@ import factory.Textinput;
 import js.Browser;
 import js.html.Element;
 
-/**
- * ...
- * @author Urs Stutz
- */
 class Data2UI {
 
 	public static function createFieldDatasets<T>( data:T ):Array<FieldData> {

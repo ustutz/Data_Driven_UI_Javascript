@@ -6,10 +6,6 @@ import enums.TValueType;
 import js.html.InputElement;
 import js.html.SelectElement;
 
-/**
- * ...
- * @author Urs Stutz
- */
 class UI2Data {
 
 	public static function retrieve( dataContainer:Data, fieldDatasets:Array<FieldData> ):Data {

@@ -3,10 +3,6 @@ import enums.TValueType;
 import js.html.Element;
 import js.html.InputElement;
 
-/**
- * ...
- * @author Urs Stutz
- */
 class FieldData {
 	
 	public var name:String;

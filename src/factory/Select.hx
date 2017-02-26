@@ -2,10 +2,6 @@ package factory;
 import js.Browser;
 import js.html.SelectElement;
 
-/**
- * ...
- * @author Urs Stutz
- */
 class Select {
 
 	public static function create( options:Array<String>, defaultIndex:Int = 0 ):SelectElement {

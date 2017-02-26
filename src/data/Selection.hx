@@ -1,9 +1,5 @@
 package data;
 
-/**
- * ...
- * @author Urs Stutz
- */
 class Selection {
 	
 	public var options:Array<String>;

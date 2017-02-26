@@ -1,8 +1,5 @@
 package enums;
 
-/**
- * @author Urs Stutz
- */
 enum TValueType {
 	TBool;
 	TEnum;
