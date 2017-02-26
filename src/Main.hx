@@ -1,7 +1,7 @@
 package;
 
 import contexts.CreateUI;
-import contexts.Data2UI;
+import contexts.Data2UIData;
 import contexts.UI2Data;
 import data.DataAllTypes;
 import data.DataString;
@@ -45,7 +45,7 @@ class Main {
 		
 		usedData = data1;
 		
-		fieldDatasets = Data2UI.createFieldDatasets( usedData );
+		fieldDatasets = Data2UIData.createFieldDatasets( usedData );
 		CreateUI.create( fieldDatasets );
 		
 		var okButton = Browser.document.getElementById( "ok" );

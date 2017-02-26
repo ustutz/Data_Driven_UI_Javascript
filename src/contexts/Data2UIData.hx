@@ -4,13 +4,12 @@ import data.Data;
 import data.FieldData;
 import data.Selection;
 import enums.TValueType;
-import factory.Checkbox;
-import factory.Select;
-import factory.Textinput;
 import js.Browser;
 import js.html.Element;
+import js.html.InputElement;
+import js.html.SelectElement;
 
-class Data2UI {
+class Data2UIData {
 
 	public static function createFieldDatasets<T>( data:T ):Array<FieldData> {
 		
@@ -29,13 +28,13 @@ class Data2UI {
 				case TClass( c ):
 					if ( c == String ) {
 						
-						var inputElement = Textinput.create( value );
+						var inputElement = createTextinput( value );
 						fieldDatasets.push( new FieldData( field, TValueType.TString, value, labelElement, inputElement, UI2Data.retrieveString ));
 					
 					} else if ( c == Selection ) {
 						
 						if ( value.options.length > 1 ) {
-							var selectElement = Select.create( value.options, value.defaultIndex );
+							var selectElement = createSelect( value.options, value.defaultIndex );
 							fieldDatasets.push( new FieldData( field, TValueType.TSelection, value, labelElement, selectElement, UI2Data.retrieveSelect ));
 						} else {
 							var selectElement = createText( value.options[0] );
@@ -44,19 +43,19 @@ class Data2UI {
 					}
 				
 				case TEnum(_):
-					var selectElement = Select.create( Type.getEnumConstructs( Type.getEnum( value )), Type.enumIndex( value ) );
+					var selectElement = createSelect( Type.getEnumConstructs( Type.getEnum( value )), Type.enumIndex( value ) );
 					fieldDatasets.push( new FieldData( field, TValueType.TEnum, value, labelElement, selectElement, UI2Data.retrieveSelect ));
 				
 				case TFloat:
-					var inputElement = Textinput.create( Std.string( value ));
+					var inputElement = createTextinput( Std.string( value ));
 					fieldDatasets.push( new FieldData( field, TValueType.TFloat, value, labelElement, inputElement, UI2Data.retrieveFloat ));
 				
 				case TInt:
-					var inputElement = Textinput.create( Std.string( value ));
+					var inputElement = createTextinput( Std.string( value ));
 					fieldDatasets.push( new FieldData( field, TValueType.TInt, value, labelElement, inputElement, UI2Data.retrieveInt ));
 				
 				case TBool:
-					var inputElement = Checkbox.create( value );
+					var inputElement = createCheckBox( value );
 					fieldDatasets.push( new FieldData( field, TValueType.TBool, value, labelElement, inputElement, UI2Data.retrieveBool ));
 				
 				case _:
@@ -67,10 +66,44 @@ class Data2UI {
 		
 	}
 	
+	static function createCheckBox( value:Bool ):InputElement {
+		
+		var checkbox = Browser.document.createInputElement();
+		checkbox.type = "checkbox";
+		checkbox.checked = value;
+		
+		return checkbox;
+	}
+	
+	public static function createSelect( options:Array<String>, defaultIndex:Int = 0 ):SelectElement {
+		
+		var select = Browser.document.createSelectElement();
+		
+		for ( i in 0...options.length ) {
+			var option = Browser.document.createOptionElement();
+			option.value = Std.string( i );
+			option.innerHTML = options[i];
+			if ( i == defaultIndex ) {
+				option.selected = true;
+			}
+			select.appendChild( option );
+		}
+		
+		return select;
+	}
+	
 	static function createText( text:String ):Element {
 		var span = Browser.document.createSpanElement();
 		span.innerHTML = text;
 		return span;
+	}
+	
+	public static function createTextinput( value:String = "" ):InputElement {
+		
+		var input = Browser.document.createInputElement();
+		input.type = "text";
+		input.defaultValue = value;
+		return input;
 	}
 	
 	static function createLabelElement( text:String ):Element {
