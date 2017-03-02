@@ -16,8 +16,9 @@ class DataAllTypes  extends Data {
 	public var choice:Choices;
 	public var selection:Selection;
 	public var onlyOneSelection:Selection;
+	public var nestedData:NestedData;
 
-	public function new( id:Int, isYesOrNo:Bool, number:Float, amount:Int, someText:String, choice:Choices, selection:Selection, onlyOneSelection:Selection ) {
+	public function new( id:Int, isYesOrNo:Bool, number:Float, amount:Int, someText:String, choice:Choices, selection:Selection, onlyOneSelection:Selection, nestedData:NestedData ) {
 		
 		super( id );
 		
@@ -28,9 +29,10 @@ class DataAllTypes  extends Data {
 		this.choice = choice;
 		this.selection = selection;
 		this.onlyOneSelection = onlyOneSelection;
+		this.nestedData = nestedData;
 	}
 	
 	override public function copy():DataAllTypes {
-		return new DataAllTypes( id, isYesOrNo, number, amount, someText, choice, selection,onlyOneSelection );
+		return new DataAllTypes( id, isYesOrNo, number, amount, someText, choice, selection, onlyOneSelection, nestedData );
 	}
 }

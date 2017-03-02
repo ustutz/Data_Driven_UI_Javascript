@@ -1,12 +1,10 @@
 package;
 
-import contexts.CreateUI;
-import contexts.Data2UIData;
-import contexts.UI2Data;
 import data.DataAllTypes;
-import data.DataString;
-import data.FieldData;
+import data.NestedData;
 import data.Selection;
+import data.UIData;
+import data.fieldTypes.IDataField;
 import enums.TValueType;
 import haxe.Json;
 import js.Browser;
@@ -23,40 +21,41 @@ import js.html.InputElement;
  */
 class Main {
 	
-	static var data1:DataAllTypes;
-	static var data2:DataString;
+	static var testData:DataAllTypes;
 	
-	static var usedData:Dynamic;
-	static var fieldDatasets:Array<FieldData>;
+	static private var uiData:UIData;
 	
 	static function main() {
 		
-		data1 = new DataAllTypes( 	0, 
+		testData = new DataAllTypes( 	0, 
 									true, 
 									0.12, 
 									4, 
 									"Random Text", 
 									Choices.Second, 
 									new Selection( ["Same as Input Series", "1", "2"] ), 
-									new Selection( ["Input Series"]
-								));
+									new Selection( ["Input Series"] ),
+									new NestedData( false, 5 )
+								);
 								
-		data2 = new DataString( 1, "Some Text", "More Text", "and another one" );
+		uiData = new UIData( testData );
+		uiData.init();
 		
-		usedData = data1;
-		
-		fieldDatasets = Data2UIData.createFieldDatasets( usedData );
-		CreateUI.create( fieldDatasets );
+		var table = Browser.document.getElementById( "table" );
+		for ( row in uiData.rows ) {
+			table.appendChild( row );
+		}
 		
 		var okButton = Browser.document.getElementById( "ok" );
-		okButton.addEventListener( "click", onClick );
+		if( okButton != null ) {
+			okButton.addEventListener( "click", onClick );
+		}
 	}
 	
 	static function onClick( e:Event ):Void { //trace( "click" );
 		
-		var retrievedData = UI2Data.retrieve( usedData.copy(), fieldDatasets );
+		uiData.ui2Data();
 		
-		trace( usedData );
-		trace( retrievedData );
+		trace( testData );
 	}
 }
